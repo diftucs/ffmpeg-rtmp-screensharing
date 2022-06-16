@@ -45,18 +45,17 @@ int main()
 	// Init an AVCodecContext with the codec needed to encode the processed frames.
 	AVCodecContext *outputCodecContext = avcodec_alloc_context3(avcodec_find_encoder(outputFormatContext->oformat->video_codec));
 
-	// Init the output stream with the desired properties
-	AVStream *outputStream = avformat_new_stream(outputFormatContext, NULL);
-	outputStream->codecpar->codec_id = AV_CODEC_ID_FLV1;
-	outputStream->codecpar->codec_type = AVMEDIA_TYPE_VIDEO;
-	outputStream->codecpar->bit_rate = 400000;
-	outputStream->codecpar->width = 1920;
-	outputStream->codecpar->height = 1080;
-	outputStream->codecpar->format = AV_PIX_FMT_YUV420P;
-	outputStream->time_base = (AVRational){1, 60};
+	// Set the desired properties of the encoded packets
+	outputCodecContext->bit_rate = 400000;
+	outputCodecContext->width = 1920;
+	outputCodecContext->height = 1080;
+	outputCodecContext->pix_fmt = AV_PIX_FMT_YUV420P;
+	outputCodecContext->time_base = (AVRational){1, 60};
 
-	// Apply the output AVStream's parameters to the output codec
-	avcodec_parameters_to_context(outputCodecContext, outputStream->codecpar);
+	// Init the output AVStream
+	AVStream *outputStream = avformat_new_stream(outputFormatContext, NULL);
+	// Apply the output AVCodecContext's codec and packet properties to the output AVStream
+	avcodec_parameters_from_context(outputStream->codecpar, outputCodecContext);
 
 	// Additionally, set properties unique to the encoded data
 	// A minimum of 12 frames between each full frame (the rest only describe change)
