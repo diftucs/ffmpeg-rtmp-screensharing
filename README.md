@@ -1,6 +1,11 @@
 # Screensharing over RTMP with FFmpeg libraries
 
-Compile with `./compile.sh` and run with `./main`.
+## Running
+
+1. Clone repo with submodules: `git clone --recursive https://github.com/diftucs/ffmpeg-rtmp-screensharing`.
+2. `cd ffmpeg-rtmp-screensharing/`.
+3. Compile FFmpeg and this project: `./compile.sh`.
+4. Run with local libraries: `LD_LIBRARY_PATH="ffmpeg/libavfilter:ffmpeg/libavcodec:ffmpeg/libavdevice:ffmpeg/libavformat:ffmpeg/libavutil:ffmpeg/libswresample:/ffmpeg/libswscale:$LD_LIBRARY_PATH" ./main`.
 
 ## Important notes
 
