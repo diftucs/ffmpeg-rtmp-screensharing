@@ -43,7 +43,12 @@ int main()
 	AVFormatContext *outputFormatContext;
 	avformat_alloc_output_context2(&outputFormatContext, NULL, "flv", NULL);
 	// Init an AVCodecContext with the codec needed to encode the processed frames.
-	AVCodecContext *outputCodecContext = avcodec_alloc_context3(avcodec_find_encoder(outputFormatContext->oformat->video_codec));
+	//
+	// Note:
+	// The default codec when initializing an AVFormatContext with an FLV container like above is AV_CODEC_ID_FLV1 (see AVFormatContext->oformat->video_codec).
+	// That is the outdated H.263 codec, which can be replaced by H.264 by explicitly specifying AV_CODEC_ID_H264 when creating the AVCodecContext.
+	// This will result in keeping the FLV container, but having H.264 encoded data within instead.
+	AVCodecContext *outputCodecContext = avcodec_alloc_context3(avcodec_find_encoder(AV_CODEC_ID_H264));
 
 	// Set the desired properties of the encoded packets
 	outputCodecContext->bit_rate = 400000;
