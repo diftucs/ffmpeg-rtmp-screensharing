@@ -7,6 +7,10 @@
 3. Compile FFmpeg and this project: `./compile.sh`.
 4. Run with local libraries: `LD_LIBRARY_PATH="ffmpeg/libavfilter:ffmpeg/libavcodec:ffmpeg/libavdevice:ffmpeg/libavformat:ffmpeg/libavutil:ffmpeg/libswresample:/ffmpeg/libswscale:$LD_LIBRARY_PATH" ./main`.
 
+## Debugging
+
+`./compile.sh` already compiles FFmpeg and this project with debug symbols. Run `LD_LIBRARY_PATH="ffmpeg/libavfilter:ffmpeg/libavcodec:ffmpeg/libavdevice:ffmpeg/libavformat:ffmpeg/libavutil:ffmpeg/libswresample:/ffmpeg/libswscale:$LD_LIBRARY_PATH" gdb ./main` to initiate debugging.
+
 ## Important notes
 
 - It is written to work with FFmpeg version 5.0
