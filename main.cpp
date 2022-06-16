@@ -24,12 +24,12 @@ extern "C"
 
 int main()
 {
-	// Initialize devices, here used for x11grab.
+	// Initialize devices, here used for x11grab
 	avdevice_register_all();
 
-	// Init input AVFormatContext. Will contain the input AVStream.
+	// Init input AVFormatContext. Will contain the input AVStream
 	AVFormatContext *inputFormatContext = avformat_alloc_context();
-	// Init input AVStream. Will have AVInputFormat x11grab and provide screen data.
+	// Init input AVStream. Will have AVInputFormat x11grab and provide screen data
 	avformat_open_input(&inputFormatContext, getenv("DISPLAY"), av_find_input_format("x11grab"), NULL);
 
 	// Init an AVCodecContext with the codec needed to decode the input AVStream
@@ -39,10 +39,10 @@ int main()
 	// Initialize the input codec
 	avcodec_open2(inputCodecContext, NULL, NULL);
 
-	// Init the output AVFormatContext. Will contain the output AVStream.
+	// Init the output AVFormatContext. Will contain the output AVStream
 	AVFormatContext *outputFormatContext;
 	avformat_alloc_output_context2(&outputFormatContext, NULL, "flv", NULL);
-	// Init an AVCodecContext with the codec needed to encode the processed frames.
+	// Init an AVCodecContext with the codec needed to encode the processed frames
 	//
 	// Note:
 	// The default codec when initializing an AVFormatContext with an FLV container like above is AV_CODEC_ID_FLV1 (see AVFormatContext->oformat->video_codec).
